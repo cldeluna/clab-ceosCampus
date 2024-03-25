@@ -1,0 +1,46 @@
+! Startup-config last modified at Sun Mar 24 22:43:21 2024 by admin
+! device: ezeas02 (cEOSLab, EOS-4.31.2F-35442176.4312F (engineering build))
+!
+no aaa root
+!
+username admin privilege 15 role network-admin secret sha512 $6$ebBg/IUbnkaomCH5$jGyLRxAXOwrhm.Q8zXI.oI94MnCV7/6bk3sa4qTyTeLoeFCDcIyK7zykJA9sG5jZfRvCpcIUuIehOcEIGMA3T.
+username cisco privilege 15 secret sha512 $6$qbjCyyldNlanRqYA$fkUGJYYHnoKIGWyAKU/NLUGlRqlnTJ4b0drSbjlGK6BFYY25F54afmnH5uTUU8P0d28oVbBhr1BeTm5JIo8.v0
+!
+transceiver qsfp default-mode 4x10G
+!
+service routing protocols model multi-agent
+!
+hostname ezeas02
+!
+spanning-tree mode mstp
+!
+system l1
+   unsupported speed action error
+   unsupported error-correction action error
+!
+management api http-commands
+   no shutdown
+!
+management api gnmi
+   transport grpc default
+!
+management api netconf
+   transport ssh default
+!
+aaa authorization exec default local
+!
+interface Ethernet1
+!
+interface Ethernet2
+!
+interface Management0
+   ip address 172.20.20.22/24
+   ipv6 address 2001:172:20:20::3/64
+!
+no ip routing
+!
+ip route 0.0.0.0/0 172.20.20.1
+!
+ipv6 route ::/0 2001:172:20:20::1
+!
+end

@@ -1,0 +1,50 @@
+name: ceosCampus
+
+topology:
+  #  kinds:
+  #  ceos:
+  #    binds:
+  #      - ceosIntfMapping.json:/mnt/flash/ceosIntfMapping.json:ro
+  defaults:
+    kind: ceos
+    image: ceos:4.31.2F
+  nodes:
+    ezecs01:
+      kind: ceos
+      image: ceos:4.31.2F
+      mgmt-ipv4: 172.20.20.10
+
+#      ports:
+#        - 22:2221
+    ezeds01:
+      kind: ceos
+      image: ceos:4.31.2F
+      mgmt-ipv4: 172.20.20.11
+
+#      ports:
+#        - 22:2222
+    ezeas01:
+      kind: ceos
+      image: ceos:4.31.2F
+      mgmt-ipv4: 172.20.20.21
+    ezeas02:
+      kind: ceos
+      image: ceos:4.31.2F
+      mgmt-ipv4: 172.20.20.22
+    ezeas03:
+      kind: ceos
+      image: ceos:4.31.2F
+      mgmt-ipv4: 172.20.20.23
+
+  links:
+    - endpoints: ["ezecs01:eth1", "ezeds01:eth1"]
+    - endpoints: ["ezecs01:eth2", "ezeds01:eth2"]
+    - endpoints: ["ezecs01:eth3", "ezeds01:eth3"]
+    - endpoints: ["ezecs01:eth4", "ezeds01:eth4"]
+    - endpoints: ["ezeds01:eth12", "ezeas01:eth1"]
+    - endpoints: ["ezeds01:eth11", "ezeas01:eth2"]
+    - endpoints: ["ezeds01:eth10", "ezeas02:eth1"]
+    - endpoints: ["ezeds01:eth9", "ezeas02:eth2"]
+    - endpoints: ["ezeds01:eth8", "ezeas03:eth1"]
+    - endpoints: ["ezeds01:eth7", "ezeas03:eth2"]
+
